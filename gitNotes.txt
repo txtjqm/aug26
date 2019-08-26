@@ -71,7 +71,14 @@ After that, when you do rightclick->Git Commit, it shows the new branch name.
 Then if you do rightclick->tortoisegit->push, it pushes to the new branch on
 github.
 
-
+***** merge ****
+merge is opposite of branch-- it brings branches back into one.
+To get changes from a branch back to master, change current branch to master:
+rightclick->tortoisegit->switch/checkout and choose master.
+Then, rightclick->tortoisegit->merge and choose the branch you want to
+merge back into master. After that master has the changes from the other branch.
+This is good when someone else is working on other files and you want to bring 
+the changes together.
 
 
 
