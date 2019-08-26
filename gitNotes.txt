@@ -1,12 +1,24 @@
 
-to prepare: install git for windows and then after that install tortoisegit.
+How to install git and tortoisegit.
+Git is useful for keeping track of projects with many files and makes
+it easy to compare what you have to what you had yesterday, last week etc.
+It's also used for collaborating with others (that's the github version).
+It's not for backing up projects for safety, use a thumb drive instead.
 
-The project folder. food is your project folder with source code.
+to prepare: 
+install git for windows and then after that install tortoisegit. Tortoisegit
+wont work without git.. you run tortoisegit from the file explorer, not as
+a separate program. 
+
+To setup a new git:
+The project folder. For example food is your project folder with source code.
 It may or may not look like this, with backups.
 myproject
     |-- food
     |-- food-copy
     |-- food-copy2
+(Note: food-copy ie copy2 etc wont get added to git. Since git cant always be trusted,
+its important to still make old-fashioned backups of folders)
 
 1. in myproject folder,  (not in your actual project but the parent folder) 
 do rightclick->git create repository here
@@ -15,9 +27,10 @@ to look at. So far nothing has been added to git.
 2. in food folder (where the project is) rightClick->tortoisegit->add
 Then choose files to add. It shows all files checked, so leave it alone
 and click commit.
+
 It then shows the commit dialog; it shows you the files to be committed and wants
 you to put in a message (something describing what you've done or need to fix).
-I usually put in just a 1 or 2 etc. It wont commit without a message.
+It wont commit without a message, so you can put in a single letter.
 After commit, it offers to push the new versions to github. If you dont have
 github setup or dont want to send files there, just click close.
 For now, we are only using git locally, not on the github website.
@@ -37,6 +50,16 @@ and wants you to add a commit message like a few steps ago. The next dialog is t
 same as before, you can click close or push to your github account; just click
 close for now.
 
+*** At this point, git is useful for keeping previous versions to your
+work which you can compare to and bring back if you need to.
+To see old versions, not just the previous version:
+rightclick->tortoisegit->Show Log
+It will show all checkins with the date and time.
+Click on a checkin and it will show all files checked in (lower window of dialog)
+DoubleClick on a file and it will show you the differences beween 
+
+**** this is the advanced section. Dont usually need it *******************
+
 ****** branches *****
 1. create branch
 rightclick->tortoisegit->create branch  Enter new branch name
@@ -44,6 +67,10 @@ rightclick->tortoisegit->create branch  Enter new branch name
 rightclick->tortoisegit->switch/checkout
 In "switch to" section, leave branch check but click on the pulldown next to
 master and select the new branch.
+After that, when you do rightclick->Git Commit, it shows the new branch name.
+Then if you do rightclick->tortoisegit->push, it pushes to the new branch on
+github.
+
 
 
 
