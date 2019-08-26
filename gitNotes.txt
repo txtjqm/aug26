@@ -37,6 +37,13 @@ and wants you to add a commit message like a few steps ago. The next dialog is t
 same as before, you can click close or push to your github account; just click
 close for now.
 
+****** branches *****
+1. create branch
+rightclick->tortoisegit->create branch  Enter new branch name
+2. connect to branch
+rightclick->tortoisegit->switch/checkout
+In "switch to" section, leave branch check but click on the pulldown next to
+master and select the new branch.
 
 
 
