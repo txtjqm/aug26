@@ -1,0 +1,23 @@
+
+to prepare: install git for windows and then after that install tortoisegit.
+
+The project folder. food is your project folder with source code.
+It may or may not look like this, with backups.
+myproject
+    |-- food
+    |-- food-copy
+    |-- food-copy2
+
+1. in myproject folder, do rightclick->git create repository here
+it makes a .git folder. This is used to store git stuff and is not useful
+to look at. So far nothing has been added to git.
+2. in food folder (where the project is) rightClick->tortoisegit->add
+Then choose files to add. It shows all files checked, so leave it along and click ok.
+It shows a new dialog- click ok. 
+
+The push command is to send files to the github website,
+but we're not at that point yet. We are only using git locally, not on the github website.
+
+
+
+
