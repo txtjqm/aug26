@@ -17,9 +17,9 @@ and click commit.
 It then shows the commit dialog; it shows you the files to be committed and wants
 you to put in a message (something describing what you've done or need to fix).
 I usually put in just a 1 or 2 etc. It wont commit without a message.
-
-The push command is to send files to the github website,
-but we're not at that point yet. We are only using git locally, not on the github website.
+After commit, it offers to push the new versions to github. If you dont have
+github setup or dont want to send files there, just click close.
+For now, we are only using git locally, not on the github website.
 
 
 
