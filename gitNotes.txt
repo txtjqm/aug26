@@ -21,6 +21,23 @@ After commit, it offers to push the new versions to github. If you dont have
 github setup or dont want to send files there, just click close.
 For now, we are only using git locally, not on the github website.
 
+Git is now setup, now see how its useful.
+* edit some file and save it.
+you will see a red dot next to the file, meaning that git has a different
+version of it. 
+* Look at the difference: rightclick the file->tortoisegit->diff with previous version.
+it shows you the differences.
+* now change more than 1 file. Without highlighting a file, righclick in the
+folder, ->tortoisegit->diff with previous version. It will show you all files which you
+changed, and if you click on any file, it shows you the difference.
+* once you have all files the way you want, and you want to send them it git,
+rightclick in the folder, "Git commit->master" and it shows you all changed files,
+and wants you to add a commit message like a few steps ago. The next dialog is the
+same as before, you can click close or push to your github account; just click
+close for now.
+
+
+
 
 
 
