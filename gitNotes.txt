@@ -12,8 +12,11 @@ myproject
 it makes a .git folder. This is used to store git stuff and is not useful
 to look at. So far nothing has been added to git.
 2. in food folder (where the project is) rightClick->tortoisegit->add
-Then choose files to add. It shows all files checked, so leave it along and click ok.
-It shows a new dialog- click ok. 
+Then choose files to add. It shows all files checked, so leave it alone
+and click commit.
+It then shows the commit dialog; it shows you the files to be committed and wants
+you to put in a message (something describing what you've done or need to fix).
+I usually put in just a 1 or 2 etc. It wont commit without a message.
 
 The push command is to send files to the github website,
 but we're not at that point yet. We are only using git locally, not on the github website.
