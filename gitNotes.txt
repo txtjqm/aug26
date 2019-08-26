@@ -8,7 +8,8 @@ myproject
     |-- food-copy
     |-- food-copy2
 
-1. in myproject folder, do rightclick->git create repository here
+1. in myproject folder,  (not in your actual project but the parent folder) 
+do rightclick->git create repository here
 it makes a .git folder. This is used to store git stuff and is not useful
 to look at. So far nothing has been added to git.
 2. in food folder (where the project is) rightClick->tortoisegit->add
