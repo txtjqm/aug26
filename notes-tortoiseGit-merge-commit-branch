@@ -1,3 +1,24 @@
+WHAT HAPPENS WHEN YOU EDIT A FILE THAT SOMEONE ELSE COMMITTED BEFORE YOU
+DID "
+* edited cars.txt on other computer, committed, then edited on own computer
+* get rejected non-fast-forward message.
+* A) tried to re-commit but not staged; added a dot to file, saved it and reapearred.
+* team->pull  It merged changes to cars.txt ONLY on own computer.
+* team->show in history ... shows the merge and files it changed
+* team->commit and push to send merge to git.
+* changed SAME LINE on cars.txt on other and own own.
+* did step A) again (failed commit, then pull) and got this (3 on own, 2 on other):
+  	<<<<<<< HEAD
+	new car both 3
+	=======
+	new car both 2
+	>>>>>>> branch 'master' of https://github.com/txtjqm/gitTestB
+* Got error
+  "Invalid author specified. Example: A U Thor <author@example.com>"
+  in box for author and committer put " aaa <aaa@aa.com> "  ... must have brackets!
+* shortcut: instead of rightclick->commit, go to "git staging" tab at bottom
+  and move edited file from "unstaged" to "staged", then "commit & push" button.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 How to install git and tortoisegit.
 Git is useful for keeping track of projects with many files and makes
@@ -79,7 +100,4 @@ Then, rightclick->tortoisegit->merge and choose the branch you want to
 merge back into master. After that master has the changes from the other branch.
 This is good when someone else is working on other files and you want to bring 
 the changes together.
-
-
-
 
