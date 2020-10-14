@@ -1,0 +1,12 @@
+  git init
+  git add .
+  git commit -m "lkajsdf"
+  git remote add origin https://github.com/txtjqm/gitTestA.git
+  git clone https://github.com/txtjqm/gitTestA.git
+  ls
+  cd gitTestA/
+  ls
+  vi cars.txt 
+  git add .
+  git commit -m "bbbb"
+  git push -u origin master
