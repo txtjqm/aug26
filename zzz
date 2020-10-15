@@ -8,9 +8,12 @@
        and some useless recommendations
   git status
   ...  above shows what the problem is
-  git add cars.txt
-  git commit -m www
-  git push -u origin master
-  cat cars.txt 
-  ...  this shows the modified cars.txt with differences to it can
-       be manually merged
+  git pull
+  ... this inserts git compare notaions into cars.txt
+      ie: <<<<<<< HEAD
+	another on pc
+	=======
+	another on github
+	>>>>>>> ee2c176caaf77a301ce256aa02ed051b0cae9e12
+  vi cars.txt 
+  ... use above notations to manually do the merge
