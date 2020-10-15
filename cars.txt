@@ -6,3 +6,4 @@ hudson new
 new on pc
 new on github
 ... above manually merged using diff notations innserted by git
+another on pc
