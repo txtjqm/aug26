@@ -1,0 +1,37 @@
+  git init
+  git add .
+  git commit -m "lkajsdf"
+  git remote add origin https://github.com/txtjqm/gitTestA.git
+  git clone https://github.com/txtjqm/gitTestA.git
+  ls
+  cd gitTestA/
+  ls
+  vi cars.txt 
+  git add .
+  git commit -m "bbbb"
+  git push -u origin master
+  ==== now demonstrate how to do a merge between pc copy and master on github
+  ==== do it by making change to cars.txt on github and change same file on pc
+  vi cars.txt 
+  ... now cars.txt has changes but there are also changes on github
+      that have not been pull'ed to pc
+  git add .
+  git commit -m "bbbbzqqq"
+  git push -u origin master
+  .... get message " ! [rejected]        master -> master (fetch first)"
+       and some useless recommendations
+  git status
+  ...  above shows what the problem is
+  git pull
+  ... this inserts git compare notaions into cars.txt
+      ie: <<<<<<< HEAD
+	another on pc
+	=======
+	another on github
+	>>>>>>> ee2c176caaf77a301ce256aa02ed051b0cae9e12
+  vi cars.txt 
+  ... use above notations to manually do the merge
+  ... now add/commit/push and the manually merged will appear on github
+  git add .
+  git commit -m www
+  git push -u origin master
