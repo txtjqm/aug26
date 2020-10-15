@@ -35,3 +35,11 @@
   git add .
   git commit -m www
   git push -u origin master
+  ===== to remove file on github
+  first, remove local file
+  git rm zzz
+  git rm zzz -f
+  git commit -m "rm zzz"
+  git push -u origin master
+  ==== now file zzz is gone from github
+
