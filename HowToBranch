@@ -1,0 +1,5 @@
+ git branch -v
+ git branch june2_22
+ git checkout june2_22
+ # set branch "june2_22" to have its upstream set to branch "origin" 
+ git push --set-upstream origin june2_22
