@@ -1,0 +1,220 @@
+
+# todo: make yy "add all" add to history in not-reverse order.
+
+# in bashrc: alias hhh='source Scripts/addHistory'
+echo Adds entry to shell history
+echo enter aa for favorites
+echo enter a for docker-compose lines
+echo enter b for LOCAL scripts
+echo enter c for aws REMOTE scripts and command-line start/stop/describe
+echo enter d for docker image/compose rebuild 
+echo enter e for hard-to-remember unix find, zip, ssh, etc commands
+echo enter f for hard-to-remember git commands
+
+declare -A listing;  # this makes listing an associative array ie: listing[x], listing[y]
+  listing[aa]='
+(gitpush) && Scripts/RunCmdOnCloud.sh "git pull && Scripts/backEndSpringBootRedo.sh"
+docker-compose -f docker-compose-fullstackWithProfiles.yml exec webA sh
+docker-compose -f docker-compose-fullstackWithProfiles.yml logs -f webA 
+docker-compose -f docker-compose-fullstackWithProfiles.yml --profile dbOnly --profile allLayersA up -d
+Scripts/backEndSpringBootRedo.sh
+'
+
+  listing[a]='
+# docker ps -aq --filter=name=nginx_container
+# docker build -t reacttrash_image -f Dockerfile.onestep .
+# docker run --name trashcontainera -p 3000:3000 -d reacttrash_image
+# docker load < /local/react_basic_image.tar
+# docker save react_basic_image > /local/react_basic_image.tar
+# docker logs $(sudo docker ps -aq --filter=name=nginx_container)
+# docker rm -f $(sudo docker ps -aq) # Remove all containers. The -f option stops the conainer first
+Scripts/rebuildContainerImage.sh docker-compose-fullstackWithProfiles.yml ignored img_react_doccompose reactA
+./gradlew build; java -Dserver.port=8086 -jar build/libs/spring-boot-0.0.1-SNAPSHOT.jar
+docker-compose -f docker-compose-fullstackWithProfiles.yml exec webA sh
+echo when adding new library to package.json, must remove images & rebuild:
+docker image rm -f image_react_container image_react_node_modules_downloaded
+curl -v http://localhost:8086 --output -
+docker ps --no-trunc 
+docker-compose -f docker-compose-fullstackWithProfiles.yml ps
+docker-compose -f docker-compose-fullstackWithProfiles.yml --profile dbOnly up -d
+# this shows log of container and -f follows it continuously
+docker-compose -f docker-compose-fullstackWithProfiles.yml down
+docker-compose -f docker-compose-fullstackWithProfiles.yml logs -f webA 
+docker-compose -f docker-compose-fullstackWithProfiles.yml logs -f reactA
+# for testing VScode against a backend..
+docker-compose -f docker-compose-backend.yml up -d
+docker-compose -f docker-compose-fullstackWithProfiles.yml --profile dbOnly --profile allLayersA up -d
+Scripts/backEndSpringBootRedo.sh
+'
+
+
+    listing[b]='
+Scripts/DatabaseCreateTestUserAndTable.sh
+Scripts/backEndRefrshQuick.sh
+Scripts/backEndSpringBootRedo.sh
+Scripts/frontEndReactBuildProdForNGINX.sh
+'
+
+
+#######################################
+	CLOUD_INSTANCE_SECRETSFILE=/remote/cloudInstanceLogin.secret
+
+	if ! ( test -f "$CLOUD_INSTANCE_SECRETSFILE" )
+	then
+echo "$CLOUD_INSTANCE_SECRETSFILE" not found. You may need to create 
+echo one using "$CLOUD_INSTANCE_SECRETSFILE"_blank
+echo Or, your vmware host is not sharing /remote folder. See snafu section of docs.
+CLOUD_INSTANCE_SECRETSFILE='x'
+listing=''
+	else
+
+AWSINSTANCE_ID=$(sed -n 's/.*<AWSINSTANCE_ID>\(.*\)<\/AWSINSTANCE_ID>.*/\1/p' $CLOUD_INSTANCE_SECRETSFILE )
+#                          ^^ eat everything up until this tag  
+#                                    ^^ capture all between tags
+#                                                   ^^ output capture
+#                    ^^ -n dont print nonmatch lines  ^p=print the match (match 1)
+    listing[c]='
+echo ****Start/stop cloud instance. These need AWS client+creds installed on pc. Uses IAM mechanism.
+aws ec2 start-instances --instance-ids '$AWSINSTANCE_ID' 
+aws ec2 stop-instances --instance-ids '$AWSINSTANCE_ID' 
+aws ec2 describe-instances --instance-ids '$AWSINSTANCE_ID'
+echo remotely run on cloud instance, using cloud login creds on /remote (shared with desktop pc)
+Scripts/RunCmdOnCloud.sh 
+Scripts/RunCmdOnCloud.sh "ls"
+Scripts/RunCmdOnCloud.sh "ls Scripts && pwd"
+(gitpush) && Scripts/RunCmdOnCloud.sh "git pull && docker-compose -f docker-compose-fullstackWithProfiles.yml --profile dbOnly --profile allLayersA up -d"
+Scripts/RunCmdOnCloud.sh "git pull && docker-compose -f docker-compose-fullstackWithProfiles.yml --profile dbOnly --profile allLayersA ps"
+echo push local git then run on cloud: git pull, build springboot jar, rebuild docker image, restart it
+(gitpush) && Scripts/RunCmdOnCloud.sh "git pull && Scripts/backEndSpringBootRedo.sh"
+'
+	fi
+#######################################
+
+
+
+    listing[d]='
+docker images
+docker system prune -a # removes all images including downloaded ones
+docker ps -aq # -q causes only container id to appear
+docker logs $(sudo docker ps -aq --filter=name=nginx_container) # nested statement
+docker image rm -f reacttrash_image
+Scripts/rebuildContainerImage.sh docker-compose-backend.yml sql-container mysql_dockerfile dbServiceA
+Scripts/rebuildContainerImage.sh docker-compose-frontend.yml react_container image_react_container reactA
+docker logs $(docker ps -aq --filter=name=react_container)
+docker exec -it $(docker ps -aq --filter=name=react_container) sh
+sudo docker load < /local/react_basic_image.tar
+docker ps --no-trunc # --no-trunc shows whole command line
+'
+
+
+    listing[e]='
+eval "$(ssh-agent -s)"
+ssh-add -L
+ssh-add /remote/id_rsaABC
+sudo find . -cmin -30 -type f -exec ls -l {} \;|grep -v .git
+find . -name 'Docke*' -exec grep "abcd" {} \; -print
+find . -path '*mysql*' -prune -o -type f -size -10k -exec grep "ndRefrs" {} \; -print
+find . -type f -exec grep "ndRefrs" {} \; -print
+# -r means recursive,  -x means exclude, these excludes keep empty folder but not contents
+zip -r /remote/feb7.zip full-stack-docr -x *.git* */node_modules/**\* */spboot/build/**\* */mySqlWorkDir/**\*
+ip addr
+'
+    listing[f]='
+echo this gets everything overriding what git thinks is dirty. Use then copying .git folder from new clone into existing
+git reset --mixed
+echo this shows a diff of what you just committed
+git remote -v
+git log -p -1
+git commit -m "first commit"
+git branch -M main
+git branch -v
+git remote set-url origin git@host_rsaXYZ:my_git_id/repoABCD.git
+git push -u origin main
+git rm -r --cached .
+# this takes care of error saying something about related histories
+git pull origin main --allow-unrelated-histories
+'
+
+
+read userInputA
+\
+if [ -z $userInputA  ] # -z tests if empty. If try to == '', get error if empty
+then 
+  userInputA='none'
+fi
+
+ct=0
+unset choices; # since this is source, the array is here from last run in this shell instance. Failing to unset it results in weird things happening.
+declare -A choices;  # this makes listing an associative array ie: listing[x], listing[y]
+charCt=97 # letter 'a'
+skipd=0
+
+if [ $userInputA != 'none' ] 
+then
+	# echo $listing|sed 's/\ /\n/g'
+	# lines=$(echo -e $listing|sed 's/\ /\n/g')
+	IFS=$'\n'   #Set the field separator to new line
+	# iterate list chosen by user
+	for item in ${listing[$userInputA]}  # use curly bracket for associative array
+	do
+		# this appends the item to bash history
+		# if [ $item[0] != '#' ]  NO!
+		if [ ${item::1} != '#' ]
+		then 
+		    charCtAsCharacter=$(printf \\$(printf "%o" $charCt))  # bizzare but it works. converts int to ascii character
+		    choices[$charCtAsCharacter]=$item; # build associative array where char is key and value is command
+		    # history -s $item; fi;
+		    # show a) ... b) etc
+		    echo $charCtAsCharacter\) $item;
+		    ct=$((ct+1));  charCt=$((charCt+1));
+		    # prints d as number...     echo yyy $(printf '%d' "'a")
+		else
+		    skipd=$((skipd+1));
+		fi 
+	done
+	
+	# IF USING OR || OR AND && USE DOUBLE BRACKETS!  [[    ]]  
+	if [[ $userInputA == 'aa' || $userInputA == 'zzzzzzzzzzplaceholder' ]]; then
+        echo Adding all favorites
+	    userInputB='yy';
+	else
+	    echo "enter choice (1 or more) or yy for all, or nothing and hit enter"
+	    read userInputB
+	fi
+    # -z checks if variable exists returns boolean
+	if [ -z $userInputB  ]; then userInputB='none'; fi; # make exists so if stmt wont crash
+	
+	if [ $userInputB == 'yy' ]; then  # add all choices
+		echo adding all 
+		# echo ${choices['c']}
+		for iter in "${!choices[@]}"  # iterate associate array "choices"; key is a,b,c val is commandline
+			do
+				# echo key: $iter; echo val: ${choices[$iter]}
+				item=${choices[$iter]}
+				if [ ${item::1} != '#' ]  # skip items starting with hash sign (commented out)
+				then 
+					history -s $item  # add to history
+					ct=$((ct+1));
+				else
+					skipd=$((skipd+1));
+				fi 
+			done
+    fi
+	
+	if [[ $userInputB != 'none' &&  $userInputB != 'yy' ]]; then 
+	  # iterate each character in $userInputB
+	  for (( oneCharPtr=0; oneCharPtr<${#userInputB}; oneCharPtr++ )); do
+	    item=${userInputB:$oneCharPtr:1}  # get char at position indicated by oneCharPtr
+	    #echo adding ${choices[$item]}
+	    history -s ${choices[$item]}
+	  done
+	fi
+	# echo $ct items added to history, $skipd skipped\(#\)
+else
+        echo exiting
+fi
+
+
+
+
+
