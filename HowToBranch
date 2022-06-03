@@ -6,8 +6,12 @@
  # you're downstream when you copy (clone, checkout, etc) from a repository
  # now I changed stuff and want to push. 
  # set branch "june2_22" to have its upstream set to branch "origin" 
- # you need to do all this so "git pull" will work properly
+ # you need to exactly as below so "git pull" will work properly
  git push --set-upstream origin june2_22
  # now gitpush can be done without the upstream stuff
  gitpush
+ # try edit something on github console, but make sure its on branch june2...
+ git pull
+ # now you see above edit.
+ # now that you like branch june2.. push it back to master (aka main) branch
 
