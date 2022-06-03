@@ -3,6 +3,7 @@
  # branch is now made. Now set my current git to the new branch.
  git checkout june2_22
  # git "origin" is name for remote repository project was cloned from
+ # in this case it is "master"
  # you're downstream when you copy (clone, checkout, etc) from a repository
  # now I changed stuff and want to push. 
  # set branch "june2_22" to have its upstream set to branch "origin" 
@@ -12,6 +13,7 @@
  gitpush
  # try edit something on github console, but make sure its on branch june2...
  git pull
- # now you see above edit.
+ # now you see above edit. To see log of just june2_22:
+ git log master..june2_22
  # now that you like branch june2.. push it back to master (aka main) branch
 
