@@ -16,4 +16,9 @@
  # now you see above edit. To see log of just june2_22:
  git log master..june2_22
  # now that you like branch june2.. push it back to master (aka main) branch
-
+ git branch # shows june2_22
+ # keep the content of this branch, but record a merge:
+ git merge --strategy=ours master    
+ git checkout master
+ git merge june2_22
+ git branch # shows master

@@ -133,6 +133,32 @@ git push -u origin main
 git rm -r --cached .
 # this takes care of error saying something about related histories
 git pull origin main --allow-unrelated-histories
+ ### HOW TO BRANCH IN GIT AND LATER BRING CHANGES BACK TO MASTER (MAIN) #############
+git branch -v
+git branch june2_22
+ # branch is now made. Now set my current git to the new branch.
+git checkout june2_22
+# git "origin" is name for remote repository project was cloned from
+# in this case it is "master"
+# youre downstream when you copy (clone, checkout, etc) from a repository
+# now I changed stuff and want to push. 
+ # set branch "june2_22" to have its upstream set to branch "origin" 
+ # you need to exactly as below so "git pull" will work properly
+git push --set-upstream origin june2_22
+# now gitpush can be done without the upstream stuff
+gitpush
+# try edit something on github console, but make sure its on branch june2...
+git pull
+# now you see above edit. To see log of just june2_22:
+git log master..june2_22
+ # now that you like branch june2.. push it back to master (aka main) branch
+git branch # shows june2_22
+ # keep the content of this branch, but record a merge:
+git merge --strategy=ours master    
+git checkout master
+ # bring new branch edits into master
+git merge june2_22
+git branch # shows master
 '
 
 
@@ -161,7 +187,13 @@ then
 		# if [ $item[0] != '#' ]  NO!
 		if [ ${item::1} != '#' ]
 		then 
-		    charCtAsCharacter=$(printf \\$(printf "%o" $charCt))  # bizzare but it works. converts int to ascii character
+		    asciiCharCode=$charCt; echo $asciiCharCode;
+		    if [ $asciiCharCode -gt 122 ]
+		        then 
+		          asciiCharCode=$(($asciiCharCode - 58)) # starts alpabet at uppercase
+		          # echo zzz $asciiCharCode
+		        fi;
+		    charCtAsCharacter=$(printf \\$(printf "%o" $asciiCharCode))  # bizzare but it works. converts int to ascii character
 		    choices[$charCtAsCharacter]=$item; # build associative array where char is key and value is command
 		    # history -s $item; fi;
 		    # show a) ... b) etc
